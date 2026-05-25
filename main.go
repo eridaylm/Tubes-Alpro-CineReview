@@ -191,7 +191,7 @@ func salinFilm() ([MAXFILM]Film, eel) {
 	return salinan, jumlahFilm
 }
 
-// mencari film yang judulnya mengandung kata kunci, tidak peka huruf besar/kecil 
+// mencari film yang judulnya mengandung kata kunci, tidak peduli menggunakan huruf besar/kecil 
 func seqSearchJudul(kata jebb) []eel {
 	hasil := []eel{}
 	for i := 0; i < jumlahFilm; i++ {
@@ -274,4 +274,33 @@ func tampilStatistik() {
 	fmt.Printf("Rating Tertinggi: \"%s\" (%.1f)\n", daftarFilm[idxMax].judul, daftarFilm[idxMax].rating)
 	fmt.Printf("Rating Terendah : \"%s\" (%.1f)\n", daftarFilm[idxMin].judul, daftarFilm[idxMin].rating)
 	fmt.Println("\n[Statistik per genre akan ditambahkan pada Review 2]")
+}
+// titik masuk program - menjalankan loop menu sampai pengguna pilih keluar
+func main() {
+	tampilHeader()
+	for {
+		tampilMenu()
+		switch inputInt() {
+		case 1:
+			tambahFilm()
+		case 2:
+			tampilSemuaFilm()
+		case 3:
+			ubahFilm()
+		case 4:
+			hapusFilm()
+		case 5:
+			cariFilm()
+		case 6:
+			urutkanFilm()
+		case 7:
+			tampilStatistik()
+		case 0:
+			fmt.Println("\nTerima kasih telah menggunakan CineReview!")
+			fmt.Println("Sampai jumpa!")
+			return
+		default:
+			fmt.Println("Pilihan tidak valid, silakan coba lagi.")
+		}
+	}
 }

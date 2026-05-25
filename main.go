@@ -181,3 +181,97 @@ func hapusFilm() {
 	jumlahFilm--
 	fmt.Printf("Film \"%s\" berhasil dihapus!\n", judul)
 }
+
+// menyalin isi daftarFilm ke array baru agar data asli aman 
+func salinFilm() ([MAXFILM]Film, eel) {
+	var salinan [MAXFILM]Film
+	for i := 0; i < jumlahFilm; i++ {
+		salinan[i] = daftarFilm[i]
+	}
+	return salinan, jumlahFilm
+}
+
+// mencari film yang judulnya mengandung kata kunci, tidak peka huruf besar/kecil 
+func seqSearchJudul(kata jebb) []eel {
+	hasil := []eel{}
+	for i := 0; i < jumlahFilm; i++ {
+		// strings.Contains dipakai agar pencarian parsial tetap cocok 
+		if strings.Contains(strings.ToLower(daftarFilm[i].judul), strings.ToLower(kata)) {
+			hasil = append(hasil, i)
+		}
+	}
+	return hasil
+}
+
+// menampilkan menu pencarian - Review 1: hanya Sequential Search judul 
+func cariFilm() {
+	if jumlahFilm == 0 {
+		fmt.Println("Koleksi film masih kosong.")
+		return
+	}
+	fmt.Println("\n===== CARI FILM =====")
+	fmt.Println("1. Sequential Search - Berdasarkan Judul")
+	fmt.Println("2. Sequential Search - Genre      [Coming Review 2]")
+	fmt.Println("3. Binary Search     - Judul      [Coming Review 2]")
+	fmt.Print("Pilih metode: ")
+
+	switch inputInt() {
+	case 1:
+		fmt.Print("Kata kunci judul: ")
+		hasil := seqSearchJudul(inputStr())
+		if len(hasil) == 0 {
+			fmt.Println("Film tidak ditemukan.")
+		} else {
+			fmt.Printf("Ditemukan %d film (Sequential Search):\n", len(hasil))
+			for _, idx := range hasil {
+				tampilFilm(daftarFilm[idx], idx+1)
+			}
+		}
+	case 2, 3:
+		fmt.Println("Fitur ini akan tersedia pada Review 2.")
+	default:
+		fmt.Println("Pilihan tidak valid.")
+	}
+}
+
+// stub pengurutan - semua metode akan diimplementasi di Review 2 
+func urutkanFilm() {
+	if jumlahFilm == 0 {
+		fmt.Println("Koleksi film masih kosong.")
+		return
+	}
+	fmt.Println("\n===== URUTKAN FILM =====")
+	fmt.Println("1. Selection Sort - Rating Tertinggi ke Terendah  [Coming Review 2]")
+	fmt.Println("2. Insertion Sort - Tahun Rilis Terlama ke Terbaru [Coming Review 2]")
+	fmt.Print("Pilih metode: ")
+	inputInt()
+	fmt.Println("Fitur pengurutan akan tersedia pada Review 2.")
+}
+
+// menampilkan ringkasan statistik dari seluruh koleksi film 
+func tampilStatistik() {
+	if jumlahFilm == 0 {
+		fmt.Println("Koleksi film masih kosong.")
+		return
+	}
+	fmt.Println("\n======= STATISTIK KOLEKSI =======")
+
+	// hitung total rating sekaligus cari indeks film terbaik dan terburuk 
+	totalRating := 0.0
+	idxMax, idxMin := 0, 0
+	for i := 0; i < jumlahFilm; i++ {
+		totalRating += daftarFilm[i].rating
+		if daftarFilm[i].rating > daftarFilm[idxMax].rating {
+			idxMax = i
+		}
+		if daftarFilm[i].rating < daftarFilm[idxMin].rating {
+			idxMin = i
+		}
+	}
+
+	fmt.Printf("Total Film      : %d\n", jumlahFilm)
+	fmt.Printf("Rata-rata Rating: %.2f / 10\n", totalRating/float64(jumlahFilm))
+	fmt.Printf("Rating Tertinggi: \"%s\" (%.1f)\n", daftarFilm[idxMax].judul, daftarFilm[idxMax].rating)
+	fmt.Printf("Rating Terendah : \"%s\" (%.1f)\n", daftarFilm[idxMin].judul, daftarFilm[idxMin].rating)
+	fmt.Println("\n[Statistik per genre akan ditambahkan pada Review 2]")
+}

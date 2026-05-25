@@ -84,7 +84,7 @@ Sistem dapat menampilkan:
 
 ---
 
-# 🧠 Konsep Algoritma yang Digunakan
+# ⭐ Konsep Algoritma yang Digunakan
 
 | Algoritma         | Fungsi                                                       |
 | ----------------- | ------------------------------------------------------------ |
@@ -190,10 +190,12 @@ Program memenuhi ketentuan berikut:
 
 # 👥 Tim Pengembang
 
+Barret Fairuz Azizah | 109082530034
 Eridayalma Zahra Yohar | 109082500221
+Hiliyati Aulia | 109082500157
 
 ---
 
 # 📄 Lisensi
 
-Project ini dibuat untuk Tubes Algoritma Pemrograman 2 
+Project ini dibuat untuk memenuhi Tugas Besar Mata Kuliah Algoritma Pemrograman 2 

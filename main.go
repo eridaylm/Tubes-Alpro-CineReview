@@ -127,3 +127,57 @@ func tambahFilm() {
 	jumlahFilm++
 	fmt.Printf("Film \"%s\" berhasil ditambahkan!\n", f.judul)
 }
+
+// mengubah semua data film berdasarkan nomor yang dipilih pengguna
+func ubahFilm() {
+	if jumlahFilm == 0 {
+		fmt.Println("Koleksi film masih kosong.")
+		return
+	}
+	tampilSemuaFilm()
+	fmt.Print("\nNomor film yang ingin diubah: ")
+	no := inputInt()
+	// cek apakah nomor yang dimasukkan valid 
+	if no < 1 || no > jumlahFilm {
+		fmt.Println("Nomor tidak valid!")
+		return
+	}
+	idx := no - 1
+	fmt.Printf("\nMengubah film: %s\n", daftarFilm[idx].judul)
+	var f Film
+	fmt.Print("Judul baru    : ")
+	f.judul = inputStr()
+	fmt.Print("Tahun baru    : ")
+	f.tahun = inputInt()
+	fmt.Print("Genre baru    : ")
+	f.genre = inputStr()
+	fmt.Print("Deskripsi baru: ")
+	f.deskripsi = inputStr()
+	fmt.Print("Rating baru   : ")
+	f.rating = klampRating(inputFloat())
+	daftarFilm[idx] = f
+	fmt.Println("Data film berhasil diubah!")
+}
+
+// menghapus film dari koleksi dan menggeser sisa elemen ke kiri 
+func hapusFilm() {
+	if jumlahFilm == 0 {
+		fmt.Println("Koleksi film masih kosong.")
+		return
+	}
+	tampilSemuaFilm()
+	fmt.Print("\nNomor film yang ingin dihapus: ")
+	no := inputInt()
+	if no < 1 || no > jumlahFilm {
+		fmt.Println("Nomor tidak valid!")
+		return
+	}
+	idx := no - 1
+	judul := daftarFilm[idx].judul
+	// geser semua film di belakang index ke posisi sebelumnya 
+	for i := idx; i < jumlahFilm-1; i++ {
+		daftarFilm[i] = daftarFilm[i+1]
+	}
+	jumlahFilm--
+	fmt.Printf("Film \"%s\" berhasil dihapus!\n", judul)
+}

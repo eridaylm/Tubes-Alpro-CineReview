@@ -1,4 +1,4 @@
-# CineReview 🎬
+# CineReview
 
 CineReview adalah aplikasi katalog dan rating film berbasis bahasa pemrograman Go yang digunakan untuk mendata, mencari, mengurutkan, dan menampilkan statistik koleksi film favorit pengguna.
 
@@ -14,7 +14,7 @@ Aplikasi ini dibuat sebagai tugas besar dengan penerapan konsep:
 
 ---
 
-# 📌 Deskripsi Aplikasi
+# Deskripsi Aplikasi
 
 CineReview membantu pengguna untuk:
 
@@ -36,7 +36,7 @@ Data yang disimpan meliputi:
 
 ---
 
-# ⚙️ Fitur Utama
+# Fitur Utama
 
 ## 1. Tambah Data Film
 
@@ -84,7 +84,7 @@ Sistem dapat menampilkan:
 
 ---
 
-# ⭐ Konsep Algoritma yang Digunakan
+# Konsep Algoritma yang Digunakan
 
 | Algoritma         | Fungsi                                                       |
 | ----------------- | ------------------------------------------------------------ |
@@ -95,7 +95,7 @@ Sistem dapat menampilkan:
 
 ---
 
-# 🏗️ Struktur Program
+# Struktur Program
 
 Program dibuat secara modular menggunakan subprogram/function.
 
@@ -114,7 +114,7 @@ TampilkanStatistik()
 
 ---
 
-# 🗂️ Struktur Data
+# Struktur Data
 
 Program menggunakan:
 
@@ -139,7 +139,7 @@ var daftarFilm [MAX]Film
 
 ---
 
-# ▶️ Cara Menjalankan Program
+# Cara Menjalankan Program
 
 ## 1. Clone Repository
 
@@ -161,14 +161,14 @@ go run program.go
 
 ---
 
-# 💻 Teknologi yang Digunakan
+# Teknologi yang Digunakan
 
 * Golang
 * CLI / Terminal Application
 
 ---
 
-# 📋 Spesifikasi Tugas
+# Spesifikasi Tugas
 
 Program memenuhi ketentuan berikut:
 

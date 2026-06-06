@@ -304,4 +304,32 @@ func main() {
 		}
 	}
 }
-//barret
+
+// Selection Sort mengurutkan film dari rating tertinggi ke terendah (Eriday LM)
+func selectionSortRating(arr *[MAXFILM]Film, n eel) {
+	// memilih elemen dengan rating terbesar lalu tukar ke posisi yang benar (Eriday LM)
+	for i := 0; i < n-1; i++ {
+		maxIdx := i
+		for j := i + 1; j < n; j++ {
+			if arr[j].rating > arr[maxIdx].rating {
+				maxIdx = j
+			}
+		}
+		arr[i], arr[maxIdx] = arr[maxIdx], arr[i]
+	}
+}
+
+// Insertion Sort mengurutkan film berdasarkan tahun rilis dari terlama ke terbaru (Eriday LM)
+func insertionSortTahun(arr *[MAXFILM]Film, n eel) {
+	// menyisipkan setiap elemen ke posisi yang tepat secara berurutan (Eriday LM)
+	for i := 1; i < n; i++ {
+		kunci := arr[i]
+		j := i - 1
+		// menggeser elemen ke kanan selama tahunnya lebih besar dari kunci (Eriday LM)
+		for j >= 0 && arr[j].tahun > kunci.tahun {
+			arr[j+1] = arr[j]
+			j--
+		}
+		arr[j+1] = kunci
+	}
+}

@@ -203,50 +203,6 @@ func seqSearchJudul(kata jebb) []eel {
 	return hasil
 }
 
-// menampilkan menu pencarian - Review 1: hanya Sequential Search judul 
-func cariFilm() {
-	if jumlahFilm == 0 {
-		fmt.Println("Koleksi film masih kosong.")
-		return
-	}
-	fmt.Println("\n===== CARI FILM =====")
-	fmt.Println("1. Sequential Search - Berdasarkan Judul")
-	fmt.Println("2. Sequential Search - Genre      [Review 2]")
-	fmt.Println("3. Binary Search     - Judul      [Review 2]")
-	fmt.Print("Pilih metode: ")
-
-	switch inputInt() {
-	case 1:
-		fmt.Print("Kata kunci judul: ")
-		hasil := seqSearchJudul(inputStr())
-		if len(hasil) == 0 {
-			fmt.Println("Film tidak ditemukan.")
-		} else {
-			fmt.Printf("Ditemukan %d film (Sequential Search):\n", len(hasil))
-			for _, idx := range hasil {
-				tampilFilm(daftarFilm[idx], idx+1)
-			}
-		}
-	case 2, 3:
-		fmt.Println("Fitur ini akan tersedia pada Review 2.")
-	default:
-		fmt.Println("Pilihan tidak valid.")
-	}
-}
-
-// stub pengurutan - semua metode akan diimplementasi di Review 2 
-func urutkanFilm() {
-	if jumlahFilm == 0 {
-		fmt.Println("Koleksi film masih kosong.")
-		return
-	}
-	fmt.Println("\n===== URUTKAN FILM =====")
-	fmt.Println("1. Selection Sort - Rating Tertinggi ke Terendah  [Coming Review 2]")
-	fmt.Println("2. Insertion Sort - Tahun Rilis Terlama ke Terbaru [Coming Review 2]")
-	fmt.Print("Pilih metode: ")
-	inputInt()
-	fmt.Println("Fitur pengurutan akan tersedia pada Review 2.")
-}
 
 // menampilkan ringkasan statistik dari seluruh koleksi film 
 func tampilStatistik() {
@@ -275,12 +231,160 @@ func tampilStatistik() {
 	fmt.Printf("Rating Terendah : \"%s\" (%.1f)\n", daftarFilm[idxMin].judul, daftarFilm[idxMin].rating)
 	fmt.Println("\n[Statistik per genre akan ditambahkan pada Review 2]")
 }
-// titik masuk program - menjalankan loop menu sampai pengguna pilih keluar
+// Selection Sort mengurutkan film dari rating tertinggi ke terendah
+func selectionSortRating(arr *[MAXFILM]Film, n eel) {
+	// memilih elemen dengan rating terbesar lalu tukar ke posisi yang benar 
+	for i := 0; i < n-1; i++ {
+		maxIdx := i
+		for j := i + 1; j < n; j++ {
+			if arr[j].rating > arr[maxIdx].rating {
+				maxIdx = j
+			}
+		}
+		arr[i], arr[maxIdx] = arr[maxIdx], arr[i]
+	}
+}
+
+// Insertion Sort mengurutkan film berdasarkan tahun rilis dari terlama ke terbaru 
+func insertionSortTahun(arr *[MAXFILM]Film, n eel) {
+	// menyisipkan setiap elemen ke posisi yang tepat secara berurutan 
+	for i := 1; i < n; i++ {
+		kunci := arr[i]
+		j := i - 1
+		// menggeser elemen ke kanan selama tahunnya lebih besar dari kunci 
+		for j >= 0 && arr[j].tahun > kunci.tahun {
+			arr[j+1] = arr[j]
+			j--
+		}
+		arr[j+1] = kunci
+	}
+}
+
+//binarysearch cari film berdasarkan judul
+func binarySearchJudul(arr [MAXFILM]Film, n eel, kata jebb) eel {
+	kiri, kanan := 0, n-1
+	kataCari := strings.ToLower(kata)
+	// membagi array menjadi 2 bagian sampai ditemukan/habis
+	for kiri <= kanan {
+		tengah := (kiri + kanan) / 2
+		judulTengah := strings.ToLower(arr[tengah].judul)
+		if strings.Contains(judulTengah, kataCari) {
+			return tengah
+		} else if judulTengah < kataCari {
+			kiri = tengah + 1
+		} else {
+			kanan = tengah - 1
+		}
+	}
+	return -1
+}
+
+
+// menampilkan menu pencarian dan menjalankan metode yang dipilih 
+func cariFilm() {
+	if jumlahFilm == 0 {
+		fmt.Println("Koleksi film masih kosong.")
+		return
+	}
+	fmt.Println("\n===== CARI FILM =====")
+	fmt.Println("1. Sequential Search - Berdasarkan Judul")
+	fmt.Println("2. Sequential Search - Berdasarkan Genre")
+	fmt.Println("3. Binary Search     - Berdasarkan Judul")
+	fmt.Print("Pilih metode: ")
+	pilih := inputInt()
+
+	switch pilih {
+	case 1:
+		// sequential search menelusuri satu per satu dari awal array 
+		fmt.Print("Kata kunci judul: ")
+		kata := inputStr()
+		hasil := seqSearchJudul(kata)
+		if len(hasil) == 0 {
+			fmt.Println("Film tidak ditemukan.")
+		} else {
+			fmt.Printf("Ditemukan %d film (Sequential Search):\n", len(hasil))
+			for _, idx := range hasil {
+				tampilFilm(daftarFilm[idx], idx+1)
+			}
+		}
+	case 2:
+		// sequential search mencari semua film dalam genre tertentu
+		fmt.Print("Nama genre: ")
+		genre := inputStr()
+		hasil := seqSearchGenre(genre)
+		if len(hasil) == 0 {
+			fmt.Printf("Tidak ada film bergenre \"%s\".\n", genre)
+		} else {
+			fmt.Printf("Ditemukan %d film genre \"%s\" (Sequential Search):\n", len(hasil), genre)
+			for _, idx := range hasil {
+				tampilFilm(daftarFilm[idx], idx+1)
+			}
+		}
+	case 3:
+		// binary search memerlukan array yang sudah terurut berdasarkan judul
+		fmt.Print("Kata kunci judul: ")
+		kata := inputStr()
+		salinan, n := salinFilm()
+		// mengurutkan salinan berdasarkan judul sebelum binary search
+		for i := 1; i < n; i++ {
+			kunci := salinan[i]
+			j := i - 1
+			for j >= 0 && strings.ToLower(salinan[j].judul) > strings.ToLower(kunci.judul) {
+				salinan[j+1] = salinan[j]
+				j--
+			}
+			salinan[j+1] = kunci
+		}
+		idx := binarySearchJudul(salinan, n, kata)
+		if idx == -1 {
+			fmt.Println("Film tidak ditemukan (Binary Search).")
+		} else {
+			fmt.Println("Film ditemukan (Binary Search):")
+			tampilFilm(salinan[idx], idx+1)
+		}
+	default:
+		fmt.Println("Pilihan tidak valid.")
+	}
+}
+
+// menampilkan menu pengurutan dan menjalankan metode yang dipilih 
+func urutkanFilm() {
+	if jumlahFilm == 0 {
+		fmt.Println("Koleksi film masih kosong.")
+		return
+	}
+	fmt.Println("\n===== URUTKAN FILM =====")
+	fmt.Println("1. Selection Sort - Rating Tertinggi ke Terendah")
+	fmt.Println("2. Insertion Sort - Tahun Rilis Terlama ke Terbaru")
+	fmt.Print("Pilih metode: ")
+	pilih := inputInt()
+
+	// membuat salinan agar urutan data asli tidak berubah 
+	salinan, n := salinFilm()
+	switch pilih {
+	case 1:
+		selectionSortRating(&salinan, n)
+		fmt.Println("\n=== Urutan Rating Tertinggi ke Terendah (Selection Sort) ===")
+		for i := 0; i < n; i++ {
+			tampilFilm(salinan[i], i+1)
+		}
+	case 2:
+		insertionSortTahun(&salinan, n)
+		fmt.Println("\n=== Urutan Tahun Rilis Terlama ke Terbaru (Insertion Sort) ===")
+		for i := 0; i < n; i++ {
+			tampilFilm(salinan[i], i+1)
+		}
+	default:
+		fmt.Println("Pilihan tidak valid.")
+	}
+}
+
 func main() {
 	tampilHeader()
 	for {
 		tampilMenu()
-		switch inputInt() {
+		pilih := inputInt()
+		switch pilih {
 		case 1:
 			tambahFilm()
 		case 2:
@@ -302,34 +406,5 @@ func main() {
 		default:
 			fmt.Println("Pilihan tidak valid, silakan coba lagi.")
 		}
-	}
-}
-
-// Selection Sort mengurutkan film dari rating tertinggi ke terendah (Eriday LM)
-func selectionSortRating(arr *[MAXFILM]Film, n eel) {
-	// memilih elemen dengan rating terbesar lalu tukar ke posisi yang benar (Eriday LM)
-	for i := 0; i < n-1; i++ {
-		maxIdx := i
-		for j := i + 1; j < n; j++ {
-			if arr[j].rating > arr[maxIdx].rating {
-				maxIdx = j
-			}
-		}
-		arr[i], arr[maxIdx] = arr[maxIdx], arr[i]
-	}
-}
-
-// Insertion Sort mengurutkan film berdasarkan tahun rilis dari terlama ke terbaru (Eriday LM)
-func insertionSortTahun(arr *[MAXFILM]Film, n eel) {
-	// menyisipkan setiap elemen ke posisi yang tepat secara berurutan (Eriday LM)
-	for i := 1; i < n; i++ {
-		kunci := arr[i]
-		j := i - 1
-		// menggeser elemen ke kanan selama tahunnya lebih besar dari kunci (Eriday LM)
-		for j >= 0 && arr[j].tahun > kunci.tahun {
-			arr[j+1] = arr[j]
-			j--
-		}
-		arr[j+1] = kunci
 	}
 }

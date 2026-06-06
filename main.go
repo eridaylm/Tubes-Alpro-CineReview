@@ -379,6 +379,75 @@ func urutkanFilm() {
 	}
 }
 
+// Sequential Search mencari semua film berdasarkan genre 
+func seqSearchGenre(genre jebb) []eel {
+	hasil := []eel{}
+	// menelusuri setiap elemen dan mencocokkan genre 
+	for i := 0; i < jumlahFilm; i++ {
+		if strings.EqualFold(daftarFilm[i].genre, genre) {
+			hasil = append(hasil, i)
+		}
+	}
+	return hasil
+}
+
+// menampilkan statistik koleksi film 
+func tampilStatistik() {
+	if jumlahFilm == 0 {
+		fmt.Println("Koleksi film masih kosong.")
+		return
+	}
+	fmt.Println("\n======= STATISTIK KOLEKSI =======")
+
+	// menjumlahkan seluruh rating untuk mencari rata-rata 
+	totalRating := 0.0
+	idxMax, idxMin := 0, 0
+	for i := 0; i < jumlahFilm; i++ {
+		totalRating += daftarFilm[i].rating
+		if daftarFilm[i].rating > daftarFilm[idxMax].rating {
+			idxMax = i
+		}
+		if daftarFilm[i].rating < daftarFilm[idxMin].rating {
+			idxMin = i
+		}
+	}
+	rataRata := totalRating / float64(jumlahFilm)
+
+	fmt.Printf("Total Film      : %d\n", jumlahFilm)
+	fmt.Printf("Rata-rata Rating: %.2f / 10\n", rataRata)
+	fmt.Printf("Rating Tertinggi: \"%s\" (%.1f)\n", daftarFilm[idxMax].judul, daftarFilm[idxMax].rating)
+	fmt.Printf("Rating Terendah : \"%s\" (%.1f)\n", daftarFilm[idxMin].judul, daftarFilm[idxMin].rating)
+
+	// menghitung jumlah film per genre menggunakan array paralel 
+	var namaGenre [MAXFILM]jebb
+	var hitungGenre [MAXFILM]eel
+	jumlahGenre := 0
+
+	// mengkelompokkan setiap film ke genre yang sesuai 
+	for i := 0; i < jumlahFilm; i++ {
+		ketemu := false
+		for j := 0; j < jumlahGenre; j++ {
+			if strings.EqualFold(namaGenre[j], daftarFilm[i].genre) {
+				hitungGenre[j]++
+				ketemu = true
+				break
+			}
+		}
+		if !ketemu {
+			namaGenre[jumlahGenre] = daftarFilm[i].genre
+			hitungGenre[jumlahGenre] = 1
+			jumlahGenre++
+		}
+	}
+
+	fmt.Println("\nJumlah Film per Genre:")
+	fmt.Println("--------------------------")
+	// menampilkan setiap genre beserta jumlah filmnya 
+	for i := 0; i < jumlahGenre; i++ {
+		fmt.Printf("  %-18s : %d film\n", namaGenre[i], hitungGenre[i])
+	}
+}
+
 func main() {
 	tampilHeader()
 	for {

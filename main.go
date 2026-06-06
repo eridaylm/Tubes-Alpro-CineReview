@@ -16,7 +16,7 @@ type jebb = string
 const MAXFILM = 100
 
 // struct Film menyimpan semua informasi tentang satu film 
-type Film struct {
+type Film struct { //struktur film
 	judul     jebb
 	tahun     eel
 	deskripsi jebb
@@ -86,7 +86,7 @@ func tampilMenu() {
 }
 
 // menampilkan detail lengkap satu film beserta nomor urutnya 
-func tampilFilm(f Film, no eel) {
+func tampilFilm(f Film, no eel) { //menampilkan detail lengkap sebuah film
 	fmt.Printf("\n[%d] %-30s (%d)\n", no, f.judul, f.tahun)
 	fmt.Printf("    Genre    : %s\n", f.genre)
 	fmt.Printf("    Rating   : %.1f/10\n", f.rating)
@@ -101,18 +101,18 @@ func tampilSemuaFilm() {
 	}
 	fmt.Println("\n======= DAFTAR KOLEKSI FILM =======")
 	for i := 0; i < jumlahFilm; i++ {
-		tampilFilm(daftarFilm[i], i+1)
+		tampilFilm(daftarFilm[i], i+1) //perulangan seluruh film, loop akan berjalan dari indeks 0 sampai jumlah film yang aktif
 	}
 }
 
 // meminta input data film baru lalu menyimpannya ke koleksi 
 func tambahFilm() {
-	if jumlahFilm >= MAXFILM {
+	if jumlahFilm >= MAXFILM { //mengecek kapasitas penyimpanan
 		fmt.Println("Koleksi sudah penuh!")
 		return
 	}
 	fmt.Println("\n===== TAMBAH FILM =====")
-	var f Film
+	var f Film //membuat variabel film baru
 	fmt.Print("Judul Film    : ")
 	f.judul = inputStr()
 	fmt.Print("Tahun Rilis   : ")
@@ -124,13 +124,13 @@ func tambahFilm() {
 	fmt.Print("Rating (0-10) : ")
 	f.rating = klampRating(inputFloat())// klampRating dipakai agar rating tidak keluar dari rentang 0-10 
 	daftarFilm[jumlahFilm] = f
-	jumlahFilm++
+	jumlahFilm++ //menyimpan ke array
 	fmt.Printf("Film \"%s\" berhasil ditambahkan!\n", f.judul)
 }
 
 // mengubah semua data film berdasarkan nomor yang dipilih pengguna
 func ubahFilm() {
-	if jumlahFilm == 0 {
+	if jumlahFilm == 0 { //mengecek apakah koleksi kosong
 		fmt.Println("Koleksi film masih kosong.")
 		return
 	}
@@ -211,8 +211,8 @@ func cariFilm() {
 	}
 	fmt.Println("\n===== CARI FILM =====")
 	fmt.Println("1. Sequential Search - Berdasarkan Judul")
-	fmt.Println("2. Sequential Search - Genre      [Coming Review 2]")
-	fmt.Println("3. Binary Search     - Judul      [Coming Review 2]")
+	fmt.Println("2. Sequential Search - Genre      [Review 2]")
+	fmt.Println("3. Binary Search     - Judul      [Review 2]")
 	fmt.Print("Pilih metode: ")
 
 	switch inputInt() {

@@ -203,34 +203,6 @@ func seqSearchJudul(kata jebb) []eel {
 	return hasil
 }
 
-
-// menampilkan ringkasan statistik dari seluruh koleksi film 
-func tampilStatistik() {
-	if jumlahFilm == 0 {
-		fmt.Println("Koleksi film masih kosong.")
-		return
-	}
-	fmt.Println("\n======= STATISTIK KOLEKSI =======")
-
-	// hitung total rating sekaligus cari indeks film terbaik dan terburuk 
-	totalRating := 0.0
-	idxMax, idxMin := 0, 0
-	for i := 0; i < jumlahFilm; i++ {
-		totalRating += daftarFilm[i].rating
-		if daftarFilm[i].rating > daftarFilm[idxMax].rating {
-			idxMax = i
-		}
-		if daftarFilm[i].rating < daftarFilm[idxMin].rating {
-			idxMin = i
-		}
-	}
-
-	fmt.Printf("Total Film      : %d\n", jumlahFilm)
-	fmt.Printf("Rata-rata Rating: %.2f / 10\n", totalRating/float64(jumlahFilm))
-	fmt.Printf("Rating Tertinggi: \"%s\" (%.1f)\n", daftarFilm[idxMax].judul, daftarFilm[idxMax].rating)
-	fmt.Printf("Rating Terendah : \"%s\" (%.1f)\n", daftarFilm[idxMin].judul, daftarFilm[idxMin].rating)
-	fmt.Println("\n[Statistik per genre akan ditambahkan pada Review 2]")
-}
 // Selection Sort mengurutkan film dari rating tertinggi ke terendah
 func selectionSortRating(arr *[MAXFILM]Film, n eel) {
 	// memilih elemen dengan rating terbesar lalu tukar ke posisi yang benar 

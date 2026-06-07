@@ -1,0 +1,72 @@
+[
+  {
+    "judul": "Allied",
+    "tahun": 2016,
+    "genre": "Drama, Romance, War",
+    "deskripsi": "Seorang mata-mata dan pejuang perlawanan jatuh cinta di tengah Perang Dunia II.",
+    "rating": 7.1
+  },
+  {
+    "judul": "Avatar",
+    "tahun": 2009,
+    "genre": "Action, Adventure, Sci-Fi",
+    "deskripsi": "Seorang mantan marinir menjelajahi dunia Pandora dan terlibat dalam konflik antara manusia dan suku Na'vi.",
+    "rating": 7.9
+  },
+  {
+    "judul": "Interstellar",
+    "tahun": 2014,
+    "genre": "Adventure, Drama, Sci-Fi",
+    "deskripsi": "Sekelompok astronot melakukan perjalanan antar-galaksi untuk mencari harapan baru bagi umat manusia.",
+    "rating": 10.0
+  },
+  {
+    "judul": "Goblin",
+    "tahun": 2016,
+    "genre": "Fantasy, Romance, Drama",
+    "deskripsi": "Seorang goblin abadi mencari pengantin yang dapat mengakhiri kutukannya.",
+    "rating": 8.6
+  },
+  {
+    "judul": "The Conjuring",
+    "tahun": 2013,
+    "genre": "Horror, Mystery, Thriller",
+    "deskripsi": "Pasangan penyelidik paranormal membantu keluarga yang diteror kekuatan supranatural.",
+    "rating": 7.5
+  },
+  {
+    "judul": "KKN di Desa Penari",
+    "tahun": 2022,
+    "genre": "Horror, Mystery",
+    "deskripsi": "Sekelompok mahasiswa mengalami kejadian mistis saat menjalani program KKN di sebuah desa terpencil.",
+    "rating": 5.9
+  },
+  {
+    "judul": "Project Hail Mary",
+    "tahun": 2026,
+    "genre": "Sci-Fi, Adventure",
+    "deskripsi": "Seorang ilmuwan berusaha menyelamatkan Bumi melalui misi luar angkasa yang penuh tantangan.",
+    "rating": 9.0
+  },
+  {
+    "judul": "The Devil Wears Prada",
+    "tahun": 2006,
+    "genre": "Comedy, Drama",
+    "deskripsi": "Seorang jurnalis muda bekerja untuk editor majalah mode yang terkenal sangat menuntut.",
+    "rating": 8.0
+  },
+  {
+    "judul": "Transformers",
+    "tahun": 2007,
+    "genre": "Action, Adventure, Sci-Fi",
+    "deskripsi": "Pertempuran antara Autobots dan Decepticons membawa perang robot ke Bumi.",
+    "rating": 8.5
+  },
+  {
+    "judul": "Sore: Istri dari Masa Depan",
+    "tahun": 2025,
+    "genre": "Drama, Romance, Fantasy",
+    "deskripsi": "Seorang wanita dari masa depan datang untuk mengubah kehidupan dan takdir pria yang dicintainya.",
+    "rating": 7.9
+  }
+]
